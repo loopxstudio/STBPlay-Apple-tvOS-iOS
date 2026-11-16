@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>STBPlay – your sources, one clean player</title>
+<meta name="description" content="STBPlay is a media player for the playlists and provider accounts you already have. Live now on Fire OS; coming soon to Android, Apple, Vega OS, Roku and Samsung Tizen.">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<style>
+:root{
+  --bg:#f6f7fb; --card:#ffffff; --text:#14172a; --muted:#5a6078; --line:#e3e6f0;
+  --accent:#4f46e5; --accent-2:#06b6d4; --live:#0f9d58; --live-bg:#e6f6ec; --soon:#8a5a00; --soon-bg:#fff4d6;
+  --shadow:0 1px 2px rgba(20,23,42,.06),0 8px 24px rgba(20,23,42,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#0d0f1a; --card:#161a2c; --text:#eef0fa; --muted:#a2a9c4; --line:#262b45;
+    --accent:#8b86ff; --accent-2:#22d3ee; --live:#4ade80; --live-bg:#12301f; --soon:#fcd34d; --soon-bg:#3a2e0b;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);}
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+header.nav{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;color:var(--text);text-decoration:none;letter-spacing:-.2px}
+.logo{width:30px;height:30px;border-radius:8px;display:block}
+.hero-logo{width:112px;height:112px;border-radius:26px;display:block;margin:0 auto 22px;box-shadow:0 10px 30px rgba(20,23,42,.28)}
+.nav nav a{margin-left:20px;text-decoration:none;color:var(--muted);font-weight:600;font-size:15px}
+.nav nav a:hover{color:var(--text)}
+.hero{padding:72px 0 56px;text-align:center}
+.pill{display:inline-block;padding:6px 14px;border-radius:999px;background:var(--live-bg);color:var(--live);font-weight:700;font-size:13px;letter-spacing:.2px}
+h1{font-size:clamp(34px,6vw,58px);line-height:1.08;margin:20px 0 16px;letter-spacing:-1.2px}
+h1 span{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{max-width:640px;margin:0 auto;color:var(--muted);font-size:clamp(17px,2.2vw,20px)}
+.cta{margin-top:30px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;padding:13px 22px;border-radius:12px;font-weight:700;text-decoration:none;border:1px solid var(--line);color:var(--text);background:var(--card)}
+.btn.small{padding:9px 16px;font-size:14px;border-radius:10px;color:#fff}
+.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;border:0}
+section{padding:44px 0}
+h2{font-size:clamp(25px,3.4vw,34px);margin:0 0 8px;letter-spacing:-.5px}
+.sub{color:var(--muted);margin:0 0 26px;max-width:640px}
+.grid{display:grid;gap:16px}
+.platforms{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow)}
+.card h3{margin:10px 0 4px;font-size:18px}
+.card p{margin:0;color:var(--muted);font-size:14.5px}
+.badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.3px}
+.badge.live{background:var(--live-bg);color:var(--live)}
+.badge.soon{background:var(--soon-bg);color:var(--soon)}
+.card.is-live{border-color:color-mix(in srgb,var(--live) 55%,var(--line))}
+.ico{font-size:26px}
+.features{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.shots{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.shot{margin:0;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px;box-shadow:var(--shadow)}
+.shot img{display:block;width:100%;height:auto;border-radius:10px}
+.shot figcaption{padding:12px 6px 4px;color:var(--muted);font-size:14.5px;font-weight:600;text-align:center}
+.steps{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));counter-reset:s}
+.steps .card{position:relative;padding-top:54px}
+.steps .card::before{counter-increment:s;content:counter(s);position:absolute;top:16px;left:20px;width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-weight:800;display:grid;place-items:center;font-size:14px}
+.note{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:12px;padding:16px 18px;color:var(--muted);font-size:15px}
+footer{border-top:1px solid var(--line);margin-top:30px;padding:30px 0 50px;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between}
+footer a{color:var(--muted)}
+@media (max-width:560px){.nav nav a{margin-left:12px;font-size:14px}.nav nav a.hide-sm{display:none}.hero{padding:48px 0 36px}}
+</style>
+</head>
+<body>
+<header class="nav"><div class="wrap">
+  <a class="brand" href="/"><img class="logo" src="assets/icon-512.png" width="30" height="30" alt="">STBPlay</a>
+  <nav><a href="#platforms">Platforms</a><a class="hide-sm" href="#screens">Screens</a><a href="https://stbplay.loopxstudio.ca/privacy.html">Privacy</a><a href="https://stbplay.loopxstudio.ca/support.html">Support</a></nav>
+</div></header>
+
+<main>
+<div class="wrap hero">
+  <img class="hero-logo" src="assets/icon-512.png" width="112" height="112" alt="STBPlay app icon">
+  <span class="pill">Now live on Fire OS</span>
+  <h1>Your sources.<br><span>One clean player.</span></h1>
+  <p class="lead">STBPlay plays the playlists and provider accounts you already have, in a simple layout built for the big screen and for your phone. No ads. No tracking. No account with us.</p>
+  <div class="cta">
+    <a class="btn primary" href="https://www.amazon.com/gp/product/B0HP5SZVYM" target="_blank" rel="noopener">Get it on Fire OS</a>
+    <a class="btn" href="#platforms">See all platforms</a>
+    <a class="btn" href="https://stbplay.loopxstudio.ca/support.html">Get support</a>
+  </div>
+</div>
+
+<section id="platforms"><div class="wrap">
+  <h2>One app, many screens</h2>
+  <p class="sub">STBPlay is live on Fire OS today and is coming to more platforms.</p>
+  <div class="grid platforms">
+    <div class="card is-live"><span class="badge live">LIVE NOW</span><h3>Fire OS</h3><p>Available now on Fire OS devices.</p><p style="margin-top:12px"><a class="btn primary small" href="https://www.amazon.com/gp/product/B0HP5SZVYM" target="_blank" rel="noopener">Get it on Fire OS</a></p></div>
+    <div class="card"><span class="badge soon">COMING SOON</span><h3>Android</h3><p>Phones, tablets and Android TV devices.</p></div>
+    <div class="card"><span class="badge soon">COMING SOON</span><h3>Apple</h3><p>iPhone, iPad and Apple TV.</p></div>
+    <div class="card"><span class="badge soon">COMING SOON</span><h3>Vega OS</h3><p>On the way to Vega OS devices.</p></div>
+    <div class="card"><span class="badge soon">COMING SOON</span><h3>Roku TV</h3><p>On the way to Roku devices.</p></div>
+    <div class="card"><span class="badge soon">COMING SOON</span><h3>Samsung Tizen OS</h3><p>On the way to Samsung smart TVs.</p></div>
+  </div>
+</div></section>
+
+<section id="screens"><div class="wrap">
+  <h2>A look at the app</h2>
+  <p class="sub">Clean, dark and easy to read from the sofa. Preview shown on Apple TV.</p>
+  <div class="grid shots">
+    <figure class="shot"><img src="assets/view-sources.jpg" alt="STBPlay Sources screen: connect a Stalker portal, Xtream account or M3U/M3U8 playlist" loading="lazy"><figcaption>Connect your own source</figcaption></figure>
+    <figure class="shot"><img src="assets/view-settings.jpg" alt="STBPlay Settings screen with parental control, appearance and pass options" loading="lazy"><figcaption>Make it yours: PIN lock, themes and more</figcaption></figure>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Why STBPlay</h2>
+  <p class="sub">A focused player that stays out of your way.</p>
+  <div class="grid features">
+    <div class="card"><div class="ico">📺</div><h3>Live TV, Videos and Series</h3><p>Browse your own sources in a clean list with categories and search.</p></div>
+    <div class="card"><div class="ico">🔌</div><h3>Bring your own source</h3><p>Add M3U / M3U8 playlists, Xtream-style provider accounts and Stalker-style portals.</p></div>
+    <div class="card"><div class="ico">🎮</div><h3>Made for the remote</h3><p>Easy navigation with a TV remote, and touch controls on phones and tablets.</p></div>
+    <div class="card"><div class="ico">🔒</div><h3>Private by design</h3><p>No STBPlay account and no server of ours. Your sources and history stay on your device. No ads, no analytics.</p></div>
+    <div class="card"><div class="ico">🛡️</div><h3>PIN lock</h3><p>Lock adult-labelled categories behind your own PIN. It helps, but does not replace parental supervision.</p></div>
+    <div class="card"><div class="ico">🎟️</div><h3>Simple pricing</h3><p>Try free for 30 days, then choose a 1 Month or 1 Year pass. One payment, no automatic renewal.</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>How it works</h2>
+  <p class="sub">Three steps from install to playing.</p>
+  <div class="grid steps">
+    <div class="card"><h3>Install</h3><p>Get STBPlay from the store on your device.</p></div>
+    <div class="card"><h3>Add your source</h3><p>Enter the playlist or provider details you already have.</p></div>
+    <div class="card"><h3>Press play</h3><p>Browse Live TV, Videos and Series and start watching.</p></div>
+  </div>
+  <p class="note" style="margin-top:22px"><strong>Please note:</strong> STBPlay is a player only. It does not provide channels, movies, series or playlists. You are responsible for using only sources you have the right to use. Quality and availability depend on your provider and your network.</p>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <div>© 2026 LoopX Studio · STBPlay</div>
+  <div><a href="https://stbplay.loopxstudio.ca/privacy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="https://stbplay.loopxstudio.ca/support.html">Support</a> &nbsp;·&nbsp; <a href="mailto:support.stbplay@loopxstudio.ca">support.stbplay@loopxstudio.ca</a></div>
+</div></footer>
+</body>
+</html>
